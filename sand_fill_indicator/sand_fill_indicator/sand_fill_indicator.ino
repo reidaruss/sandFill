@@ -58,11 +58,7 @@ unsigned long testText(){
   
   //unsigned long start = micros();
   tft.setCursor(10,60);
-  if(x > 30)
-  {
-    tft.fillScreen(ILI9341_GREEN);
-    tft.setTextColor(ILI9341_BLACK);
-  }
+  
   if(x > 15 && x <= 30)
   {
     tft.fillScreen(ILI9341_YELLOW);
