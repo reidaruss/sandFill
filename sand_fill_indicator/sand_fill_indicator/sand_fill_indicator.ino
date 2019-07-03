@@ -24,6 +24,8 @@
 // HX711 circuit wiring
 const int LOADCELL_DOUT_PIN = A4;
 const int LOADCELL_SCK_PIN = A5;
+const long r_weight_measured = 1443688;
+const long r_weight = 155;
 
 HX711 scale;
 
@@ -54,10 +56,11 @@ void loop() {
 
 unsigned long testText(){
   
-  int x = scale.get_value(10);
-  
+  float x = scale.get_value(10);
+  x *= -1;
+  x = x/9314.116;
   //unsigned long start = micros();
-  tft.setCursor(10,60);
+  
   if(x > 30)
   {
     tft.fillScreen(ILI9341_GREEN);
@@ -71,13 +74,18 @@ unsigned long testText(){
   {
     tft.fillScreen(ILI9341_RED);
     tft.setTextColor(ILI9341_BLACK);
+    tft.setCursor(40, 200);
+    tft.setTextSize(4);
+    tft.print("FILL SAND");
   }
+  tft.setCursor(10,60);
   tft.setTextSize(3);
   tft.print("Measured Weight: ");
-  tft.setCursor(130, 110);
-  tft.setTextSize(5);
+  tft.setCursor(80, 110);
+  tft.setTextSize(4);
   tft.print(x);
-  tft.print("%");
+  tft.print(" lbs");
+  tft.drawLine(0, 150, 320, 150, ILI9341_BLACK);
   return micros();
 
 }
